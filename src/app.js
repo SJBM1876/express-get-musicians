@@ -5,10 +5,13 @@ const { Musician } = require("../models/index")
 const { db } = require("../db/connection")
 const { where } = require("sequelize");
 
-const router = require("./routes/musicians.js")
+const router = require("../routes/musicians.js")
 // Middleware to parse JSON bodies
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Add the router to the app
+app.use('/musicians', router); // Mount the router to the '/musicians' route
 
 // GET /musicians route
 app.get('/musicians', async (req, res) => {

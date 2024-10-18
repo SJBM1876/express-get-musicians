@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
-const Musician = require("../../models/Musician.js")
-const db = require("../../db/connection.js");
+const Musician = require("../models/Musician.js")
+const db = require("../db/connection.js");
 const { where } = require("sequelize");
 
 const router = express.Router();
