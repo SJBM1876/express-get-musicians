@@ -115,6 +115,81 @@ describe('Bands API', () => {
     });
 });
 
+describe('Validation for Musicians API', () => {
+    it('should return validation error when name is empty', async () => {
+        const response = await request(app).post('/musicians').send({
+            name: '',
+            instrument: 'Piano'
+        });
+        expect(response.statusCode).toBe(400);
+        expect(response.body.errors[0].msg).toBe('Name must be between 2 and 20 characters');
+    });
+
+    it('should return validation error when instrument is empty', async () => {
+        const response = await request(app).post('/musicians').send({
+            name: 'Test',
+            instrument: ''
+        });
+        expect(response.statusCode).toBe(400);
+        expect(response.body.errors[0].msg).toBe('Instrument must be between 2 and 20 characters');
+    });
+});
+describe('Validation for Musicians API', () => {
+    it('should return validation error when name is empty', async () => {
+        const response = await request(app).post('/musicians').send({
+            name: '',
+            instrument: 'Piano'
+        });
+        expect(response.statusCode).toBe(400);
+        expect(response.body.errors[0].msg).toBe('Name is required.');
+    });
+
+    it('should return validation error when instrument is empty', async () => {
+        const response = await request(app).post('/musicians').send({
+            name: 'Test',
+            instrument: ''
+        });
+        expect(response.statusCode).toBe(400);
+        expect(response.body.errors[0].msg).toBe('Instrument is required.');
+    });
+
+    it('should return validation error when name is too short', async () => {
+        const response = await request(app).post('/musicians').send({
+            name: 'A',
+            instrument: 'Piano'
+        });
+        expect(response.statusCode).toBe(400);
+        expect(response.body.errors[0].msg).toBe('Name must be between 2 and 20 characters.');
+    });
+
+    it('should return validation error when instrument is too short', async () => {
+        const response = await request(app).post('/musicians').send({
+            name: 'Test',
+            instrument: 'A'
+        });
+        expect(response.statusCode).toBe(400);
+        expect(response.body.errors[0].msg).toBe('Instrument must be between 2 and 20 characters.');
+    });
+
+    it('should return validation error when name is too long', async () => {
+        const response = await request(app).post('/musicians').send({
+            name: 'ThisIsAVeryLongNameThatExceedsTwentyCharacters',
+            instrument: 'Guitar'
+        });
+        expect(response.statusCode).toBe(400);
+        expect(response.body.errors[0].msg).toBe('Name must be between 2 and 20 characters.');
+    });
+
+    it('should return validation error when instrument is too long', async () => {
+        const response = await request(app).post('/musicians').send({
+            name: 'Test',
+            instrument: 'ThisIsAVeryLongInstrumentNameThatExceedsTwentyCharacters'
+        });
+        expect(response.statusCode).toBe(400);
+        expect(response.body.errors[0].msg).toBe('Instrument must be between 2 and 20 characters.');
+    });
+});
+
 
 
 
